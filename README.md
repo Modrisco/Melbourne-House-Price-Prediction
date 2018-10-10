@@ -25,5 +25,4 @@ Back-end team member. Design a RESTful API and manage DevOps tools
 Back-end team member. Build machine learning model to train and test data
 - - - -
 ## Project Architecture Diagram
-![diagram](Melbourne housing clearance data)
-
+![diagram](https://github.com/WUKUISHOU/Ass3/blob/master/diagram.png)
