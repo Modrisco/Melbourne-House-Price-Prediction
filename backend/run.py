@@ -4,6 +4,7 @@ import pymongo
 try:
 	from app import app
 	import namespaces.user
+	import namespaces.house
 	app.run(debug=True)
 except ImportError as e:
 	print('ERROR:', e, file=sys.stderr)
