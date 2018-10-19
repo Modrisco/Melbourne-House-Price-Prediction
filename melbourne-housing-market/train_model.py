@@ -29,6 +29,7 @@ X = df2.iloc[:,[0,2,3,8,12,14,21]]
 Y = df2.Price
 X = pd.get_dummies(X, drop_first=True)
 
+## linear regression
 X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size=0.25)
 linear = LinearRegression()
 linear.fit(X_train, Y_train)
@@ -36,6 +37,7 @@ linear.fit(X_train, Y_train)
 # print(cross_val_score(linear, X_train, Y_train, cv=5))
 # [0.52493576 0.51610201 0.48970882 0.52427755 0.38024456]
 
+## prediction
 pred = linear.predict(X_test)
 # score = r2_score(Y_test,pred) 
 # 0.5269530680297595
