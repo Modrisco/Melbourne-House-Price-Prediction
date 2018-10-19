@@ -25,10 +25,13 @@ signup_details = api.model('signup_details', {
 # Abbotsford,49 Lithgow St,3,h,1490000,S,Jellis,1/04/2017,3067,Northern Metropolitan,4019,3,Yarra City Council
 
 house_details = api.model('house_details', {
-  'suburb': fields.String(required=True, example='Abbotsford'),
-  'address': fields.String(required=True, example='49 Lithgow St'),
-  'rooms': fields.String(required=True, example='3'),
-  'method': fields.String(required=True, example='S')
+  'Suburb': fields.String(required=True, example='0'),
+  'Rooms': fields.String(required=True, example='3'),
+  'Type': fields.String(required=True, example='0'),
+  'Distance': fields.String(required=True, example='5'),
+  'Car': fields.String(required=True, example='1'),
+  'Building_Area': fields.String(required=True, example='100'),
+  'Year': fields.String(required=True, example='2018'),
   })
 
 def get_request_json():
