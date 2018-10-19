@@ -15,14 +15,30 @@ enc = LabelEncoder()
 df.iloc[:,0] = enc.fit_transform(df.iloc[:,0])
 df.iloc[:,3] = enc.fit_transform(df.iloc[:,3])
 
-# Data cleasing, remove row which contains null
-df2 = df[df.Price.notnull()]
-df2 = df2[df2.Distance.notnull()]
-df2 = df2[df2.Car.notnull()]
-df2 = df2[df2.BulidingArea.notnull()]
+## Data cleasing, remove row which contains null
+#df2 = df[df.Price.notnull()]
+#df2 = df2[df2.Distance.notnull()]
+#df2 = df2[df2.Car.notnull()]
+#df2 = df2[df2.BulidingArea.notnull()]
+#df2 = df2[df2.YearBuilt.notnull()]
+#df2['year'] = (2018 - df2.YearBuilt)
+#df2 = df2[~df2['BulidingArea'].isin(['0'])]
+
+# Data cleasing, for some columns replace none value with mean value
+impute_value_price = df['Price'].mean()
+df['Price'] = df['Price'].fillna(impute_value_price)
+
+impute_value_car = df['Car'].mean()
+df['Car'] = df['Car'].fillna(impute_value_car)
+
+impute_value_area = df['BuildingArea'].mean()
+df['BuildingArea'] = df['BuildingArea'].fillna(impute_value_area)
+#df2 = df[df.Price.notnull()]
+df2 = df[df.Distance.notnull()]
+#df2 = df2[df2.Car.notnull()]
+#df2 = df2[df2.BulidingArea.notnull()]
 df2 = df2[df2.YearBuilt.notnull()]
 df2['year'] = (2018 - df2.YearBuilt)
-df2 = df2[~df2['BulidingArea'].isin(['0'])]
 
 # Select columns which are highly related to price
 X = df2.iloc[:,[0,2,3,8,12,14,21]]
