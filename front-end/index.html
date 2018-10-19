@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <line rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script> src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script> src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            $(function () {
+                $('form').on('submit', function(e) {
+                    e.preventDefault();
+                    $.ajax({
+                        type: 'post',
+                        url: 'prediction.php',
+                        data: $('form').serialize(),
+                        success: function(data) {
+                            document.getElementById('pred').innerHTML = data;
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='row'>
+                <h1>Melbourne House Prediction</h1>
+                <h3>Prediction: <mark id='pred'></mark></h3>
+                <form>
+                    <div class="form-group">
+                        <label for="suburb">Suburb</label>
+                            <select class="form-control" name="suburb">
+                                <option value="0">Abbotsford</option>
+                                <option value="1">Aberfeldie</option>
+                                <option value="2">Airport West</option>
+                                <option value="3">Balwyn</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                            <label for="bedrooms">Number of Bedrooms</label>
+                                <select class="form-control" name="bedrooms">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">4</option>
+                                    <option value="6">4</option>
+                                </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bathrooms">Number of Bathrooms</label>
+                            <select class="form-control" name="bathrooms">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                     </div>
+
+                    <div class="form-group">
+                            <label for="text">Area</label>
+                            <input type="number" class="form-control" name="Sq.ft" aria-describedby="inputGroupPrepend" required>
+                            <div class="invalid-feedback">
+                                please input the area (Square feet).
+                            </div>
+                    </div>
+                    <button type="submit" class="btn btn-default" name="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
