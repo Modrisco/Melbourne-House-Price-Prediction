@@ -19,13 +19,13 @@ df.iloc[:,3] = enc.fit_transform(df.iloc[:,3])
 df2 = df[df.Price.notnull()]
 df2 = df2[df2.Distance.notnull()]
 df2 = df2[df2.Car.notnull()]
-df2 = df2[df2.Landsize.notnull()]
+df2 = df2[df2.BulidingArea.notnull()]
 df2 = df2[df2.YearBuilt.notnull()]
 df2['year'] = (2018 - df2.YearBuilt)
-df2 = df2[~df2['Landsize'].isin(['0'])]
+df2 = df2[~df2['BulidingArea'].isin(['0'])]
 
 # Select columns which are highly related to price
-X = df2.iloc[:,[0,2,3,8,12,13,21]]
+X = df2.iloc[:,[0,2,3,8,12,14,21]]
 Y = df2.Price
 X = pd.get_dummies(X, drop_first=True)
 
@@ -34,13 +34,13 @@ linear = LinearRegression()
 linear.fit(X_train, Y_train)
 
 # print(cross_val_score(linear, X_train, Y_train, cv=5))
-# [0.35948662 0.37590135 0.39705553 0.45022753 0.42608876]
+# [0.52493576 0.51610201 0.48970882 0.52427755 0.38024456]
 
 pred = linear.predict(X_test)
 # score = r2_score(Y_test,pred) 
-# 0.4360122355807299
+# 0.5269530680297595
 # rmse = np.sqrt(mean_squared_error(Y_test, pred)) 
-# 516187.90649574023
+# 462482.2032009657
 
 # import model file
 joblib.dump(linear, "mel_hp.ml")
