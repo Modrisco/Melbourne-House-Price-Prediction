@@ -1,5 +1,4 @@
 import os, sys
-import pymongo
 
 try:
 	from app import app

@@ -21,10 +21,8 @@ signup_details = api.model('signup_details', {
   'name':  fields.String(required=True, example='greg')
 })
 
-# Suburb,Address,Rooms,Type,Price,Method,SellerG,Date,Postcode,Regionname,Propertycount,Distance,CouncilArea
-# Abbotsford,49 Lithgow St,3,h,1490000,S,Jellis,1/04/2017,3067,Northern Metropolitan,4019,3,Yarra City Council
-
 house_details = api.model('house_details', {
+  'Token': fields.String(required=True, example='averyveryveryverylongtoken'),
   'Suburb': fields.String(required=True, example='0'),
   'Rooms': fields.String(required=True, example='3'),
   'Type': fields.String(required=True, example='0'),
@@ -34,12 +32,14 @@ house_details = api.model('house_details', {
   'Year': fields.String(required=True, example='2018'),
   })
 
+
 def get_request_json():
     """Get the request body as a JSON object."""
     j = request.json
     if not j:
         abort(400, "Expected a JSON object. Make sure you've set the 'Content-Type' header to 'application/json'.")
     return j
+
 
 def get_request_arg(arg, type=str, required=False, default=None):
     """Get the value of arg from request.args, converted it using `type`.
@@ -58,6 +58,7 @@ def get_request_arg(arg, type=str, required=False, default=None):
             return type(request.args[arg])
         except:
             abort(400, "Query parameter '{}' malformed".format(arg))
+
 
 def unpack(j,*args,**kargs):
     if kargs.get("required",True):

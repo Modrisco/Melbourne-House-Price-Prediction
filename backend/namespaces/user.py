@@ -1,6 +1,5 @@
 import pymongo
-from app import api
-from flask import Flask, request
+from app import api, AuthenticationToken
 from flask_restplus import Resource, Api, fields, inputs, reqparse
 from util.models import *
 
@@ -15,7 +14,14 @@ connection = pymongo.MongoClient(DB_HOST, DB_PORT)
 db = connection[DB_NAME]
 db.authenticate(DB_USER, DB_PASS)
 
+
+SECRET_KEY = "I AM YOUR WORST NIGHTMARE"
+expires_in = 600
+get_auth = AuthenticationToken(SECRET_KEY, expires_in)
+
+
 auth = api.namespace('auth', description='User Information Services')
+
 
 @auth.route('/login', strict_slashes=False)
 class Login(Resource):
@@ -26,12 +32,12 @@ class Login(Resource):
 	def post(self):
 		userlist = db.USERS
 		j = get_request_json()
-		(un,ps) = unpack(j,'username','password')
-		collections = list(db.collection_names())
+		(un, ps) = unpack(j, 'username', 'password')
 		for document in userlist.find():
 			if document['username'] == un and document['password'] == ps:
-				return 'successful', 200
-		abort(403,'Invalid Username/Password')
+				return {"token": get_auth.generate_token(un)}
+		abort(403, 'Invalid Username/Password')
+
 
 @auth.route('/signup', strict_slashes=False)
 class Signup(Resource):
@@ -40,13 +46,13 @@ class Signup(Resource):
 	@auth.response(409, 'Username Taken')
 	@api.expect(signup_details)
 	@auth.doc(description='''
-        Use this endpoint to create a new account,
-        username must be unique and password must be non empty
-    ''')
+		Use this endpoint to create a new account,
+		username must be unique and password must be non empty
+	''')
 	def post(self):
 		userlist = db.USERS
 		j = get_request_json()
-		(un,ps,em,n) = unpack(j,'username','password','email','name')
+		(un, ps, em, n) = unpack(j, 'username', 'password', 'email', 'name')
 		signup_info = {
 			'username': un,
 			'password': ps,
@@ -60,4 +66,4 @@ class Signup(Resource):
 			abort(400, 'Password cannot be empty')
 
 		userlist.insert_one(signup_info)
-		return 'successful', 200
+		return {"token": get_auth.generate_token(un)}
