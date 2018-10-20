@@ -9,7 +9,7 @@
 	        <h5 class="my-0 mr-md-auto font-weight-normal">Melbourne House Market Prediction</h5>
 	        <nav class="my-2 my-md-0 mr-md-3">
 				<a class="p-2 text-dark" href="#" data-toggle="modal" data-target="#manual_modal">Manual</a>
-	     	    <a class="p-2 text-dark" href="#" data-toggle="modal" data-target="#aboutUs_modal">About Us</a>
+	     	    <a class="p-2 text-dark" href="#" data-toggle="modal" data-target="#intro_modal">Introduction</a>
 	        </nav>
 	      	<button type="button" id="login-button" class="btn btn-primary" data-toggle="modal" data-target="#login_modal">Login In</button>
 	    </div>
@@ -401,7 +401,7 @@
 				                </select>
 							</div>
 							<div class="col-md-6 mb-3">
-								<label for="distance">Distance from Certral</label>
+								<label for="distance">Distance from Certral (Km)</label>
 								<input type="text" class="form-control" id="distance" placeholder="" value="" required="">
 							</div>
 						</div>
@@ -419,17 +419,15 @@
 									<option value="2">Unit</option>
 				                </select>
 				            </div>
-						</div>
-						<div class="row">
-							<div class="col-md-4 mb-3">
-								<label for="cars">Cars</label>
-								<input type="text" class="form-control" id="cars" placeholder="how many garages you want? e.g: 1" value="" required="">
+				            <div class="col-md-4 mb-3">
+								<label for="cars">Capacity of Garage</label>
+								<input type="text" class="form-control" id="cars" placeholder="Number of Cars" value="" required="">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-8 mb-3">
 								<label for="area">Building Area</label>
-								<input type="text" class="form-control" id="area" placeholder="please input the area (square feet)." required="">
+								<input type="text" class="form-control" id="area" placeholder="Please input the area (Square feet)" required="">
 							</div>
 							<div class="col-md-4 mb-3">
 								<label for="buildingAge">Building Age</label>
@@ -476,11 +474,11 @@
 		  </div>
 		</div>
 
-		<div class="modal fade" id="aboutUs_modal" tabindex="-1" role="dialog" aria-labelledby="aboutUs" aria-hidden="true">
+		<div class="modal fade" id="intro_modal" tabindex="-1" role="dialog" aria-labelledby="intro" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		    	<div class="modal-header">
-		        	<h5 class="modal-title" id="aboutUs">Machine Learning Model Introduction</h5>
+		        	<h5 class="modal-title" id="intro">Machine Learning Model Introduction</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		        	<span aria-hidden="true">&times;</span>
 		        </button>
