@@ -1,6 +1,8 @@
 var submitButton = document.getElementById('submit-button');
 
 submitButton.addEventListener('click', () => {
+    var form = new FormData(document.getElementById("rawInput"));
+    window.setInterval(()=>console.log(form), 1000);
     var token = prompt("token", "");
     if (token == '') {
         alert('Enter a token!')
@@ -31,12 +33,20 @@ function getPrice(data) {
             // "Content-Type": "application/x-www-form-urlencoded",
         },
         redirect: "follow", // manual, *follow, error
-    }).then(res => res.json())
-      .then(response => {
+    }).catch(error => console.error('Error:', error))
+    .then(res => res.json())
+    .then(response => {
           console.log(response)
             var housePrice = document.getElementById('price')
-            housePrice.innerHTML = '$' + response.price
+            if(response.price) housePrice.innerText = response.price
+            else {
+                $('#invalidResult').toggleClass('d-none')
+                $('#result').toggleClass('d-none')
+            }
         console.log('Success:', JSON.stringify(response))
     })
-    .catch(error => console.error('Error:', error))
+    
 }
+
+//>> Alan Code
+
