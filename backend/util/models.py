@@ -9,9 +9,9 @@ login_details = api.model('login_details', {
 })
 
 user_update_details = api.model('user_update_details', {
-    'email': fields.String(example='greg@fred.com'),
-    'name':  fields.String(example='greg'),
-    'password': fields.String(example='1234')
+  'username': fields.String(example='xX_greginator_Xx'),
+  'password': fields.String(example='1234'),
+  'new_password': fields.String(example='4321')
 })
 
 signup_details = api.model('signup_details', {

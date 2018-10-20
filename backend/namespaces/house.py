@@ -18,6 +18,10 @@ class House(Resource):
 	@house.response(200, 'Success')
 	@house.response(400, 'Missing parameters')
 	@house.expect(house_details)
+	@house.doc(description='''
+			Use this endpoint to get the prediction of price with the features given by user,
+			a valid token should also be provided to keep the stability of the API 
+		''')
 	def post(self):
 		j = get_request_json()
 		(tk,sb,rm,tp,dis,car,ba,y) = unpack(j,'Token','Suburb','Rooms','Type','Distance','Car','Building_Area','Year')
