@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 	<head>
 	<title>Melbourne House Market Prediction</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -10,7 +10,7 @@
 	        <nav class="my-2 my-md-0 mr-md-3">
 	     	    <a class="p-2 text-dark" href="#" data-toggle="modal" data-target="#aboutUs_modal">About Us</a>
 	        </nav>
-	      	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login_modal">Login In</button>
+	      	<button type="button" id="login-button" class="btn btn-primary" data-toggle="modal" data-target="#login_modal">Login In</button>
 	    </div>
 		<div class="container">
 			<div class="py-5 text-center">
@@ -25,7 +25,9 @@
 			            <h4 class="my-0 font-weight-normal">Result</h4>
 			        </div>
 			            <div class="card-body">
-			            <h1 class="card-title pricing-card-title">$123<small class="text-muted">  million</small></h1>
+			            <h1 class="card-title pricing-card-title">
+							<p id="price">$123</p>
+							<small class="text-muted">  thousand</small></h1>
 		          		<ul class="list-unstyled mt-3 mb-4">
 		            		<li>Good Location</li>
 		                	<li>Spacious Bedrooms</li>
@@ -62,17 +64,19 @@
 				                <input type="text" class="form-control" id="bedrooms" placeholder="" value="" required="">
 				            </div>
 				            <div class="col-md-4 mb-3">
-				            <label for="bathrooms">Bathrooms</label>
-				            <input type="text" class="form-control" id="bathrooms" placeholder="" value="" required="">
-				            </div>
-				            <div class="col-md-4 mb-3">
 				            	<label for="type">Type</label>
 				            	<select class="custom-select d-block w-100" id="type" required="">
 				                	<option value="">Choose...</option>
-				                	<option>Apartment</option>
-				                	<option>House</option>
+				                	<option value="0">Apartment</option>
+				                	<option value="1">House</option>
 				                </select>
 				            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 mb-3">
+								<label for="cars">Cars</label>
+								<input type="text" class="form-control" id="cars" placeholder="how many garages you want? e.g: 1" value="" required="">
+							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-8 mb-3">
@@ -84,16 +88,9 @@
 								<input type="text" class="form-control" id="buildingAge" required="">
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-6 mb-3">
-								<div class="custom-control custom-checkbox">
-					            	<input type="checkbox" class="custom-control-input" id="carGarage">
-					            	<label class="custom-control-label" for="carGarage">I would like to have a car garage</label>
-					            </div>
-							</div>
-						</div>
 						<hr class="mb-4">
-						<button class="btn btn-outline-primary btn-lg btn-block" type="submit">Now Predict!</button>
+						<input type="button" id="submit-button" class="btn btn-outline-primary btn-lg btn-block" id="submit" value="Now Predict!">
+						<!--<button id="submit-button" class="btn btn-outline-primary btn-lg btn-block">Now Predict!</button>-->
 					</form>
 				</div>
 			</div>
@@ -157,7 +154,7 @@
 		    </div>
 		  </div>
 		</div>
-
+	<script src="src/main.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

@@ -38,6 +38,10 @@ class House(Resource):
 			abort(401, 'token not valid')
 		data_array = [sb,rm,tp,dis,car,ba,y]
 		for i in range(len(data_array)):
+			try:
+				int(data_array[i])
+			except:
+				abort(400, 'Wrong input type')
 			data_array[i] = int(data_array[i])
 		result = predict(data_array)
 		price_result = {'price': result}
