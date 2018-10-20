@@ -1,85 +1,169 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <line rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script> src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script> src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script>
-            $(function () {
-                $('form').on('submit', function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        type: 'post',
-                        url: 'prediction.php',
-                        data: $('form').serialize(),
-                        success: function(data) {
-                            document.getElementById('pred').innerHTML = data;
-                        }
-                    });
-                });
-            });
-        </script>
-    </head>
-    <body>
-        <div class='container'>
-            <div class='row'>
-                <h1>Melbourne House Prediction</h1>
-                <h3>Prediction: <mark id='pred'></mark></h3>
-                <form>
-                    <div class="form-group">
-                        <label for="suburb">Suburb</label>
-                            <select class="form-control" name="suburb">
-                                <option value="0">Abbotsford</option>
-                                <option value="1">Aberfeldie</option>
-                                <option value="2">Airport West</option>
-                                <option value="3">Balwyn</option>
-                            </select>
-                    </div>
-                    <div class="form-group">
-                            <label for="bedrooms">Number of Bedrooms</label>
-                                <select class="form-control" name="bedrooms">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">4</option>
-                                    <option value="6">4</option>
-                                </select>
-                    </div>
+	<head>
+	<title>Melbourne House Market Prediction</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="CSS/main.css">
+	</head>
+	<body>
+		<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+	        <h5 class="my-0 mr-md-auto font-weight-normal">Melbourne House Market Prediction</h5>
+	        <nav class="my-2 my-md-0 mr-md-3">
+	     	    <a class="p-2 text-dark" href="#" data-toggle="modal" data-target="#aboutUs_modal">About Us</a>
+	        </nav>
+	      	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#login_modal">Login In</button>
+	    </div>
+		<div class="container">
+			<div class="py-5 text-center">
+				<!-- <h2>Melbourne House Market Prediction</h2>
+				<p>Teammate</p> -->
+				<img class="header-img" src="IMG/header.jpg">
+			</div>
+			<div class="row">
+				<div class="col-md-4 order-md-2 mb-4">
+			        <div class="card mb-4 shadow-sm">
+			        <div class="card-header">
+			            <h4 class="my-0 font-weight-normal">Result</h4>
+			        </div>
+			            <div class="card-body">
+			            <h1 class="card-title pricing-card-title">$123<small class="text-muted">  million</small></h1>
+		          		<ul class="list-unstyled mt-3 mb-4">
+		            		<li>Good Location</li>
+		                	<li>Spacious Bedrooms</li>
+		                	<li>Large Garage</li>
+		                	<li>School Nearby</li>
+		              	</ul>
+			            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Find it in Google Map</button>
+			        	</div>
+			        </div>
+			    </div>
+				<div class="col-md-8 order-md-1">
+					<h4 class="mb-3">Features</h4>
+					<p>Please input some features</p>
+					<form action="">
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="suburb">Suburb</label>
+								<select class="custom-select d-block w-100" id="suburb" required="">
+				                 	<option value="">Choose...</option>
+				                 	<option value="0">Abbotsford</option>
+				                 	<option value="1">Aberfeldie</option>
+				                 	<option value="2">Airport West</option>
+				                 	<option value="3">Balwyn</option>
+				                </select>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="distance">Distance</label>
+								<input type="text" class="form-control" id="distance" placeholder="" value="" required="">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 mb-3">
+				                <label for="bedrooms">Bedrooms</label>
+				                <input type="text" class="form-control" id="bedrooms" placeholder="" value="" required="">
+				            </div>
+				            <div class="col-md-4 mb-3">
+				            <label for="bathrooms">Bathrooms</label>
+				            <input type="text" class="form-control" id="bathrooms" placeholder="" value="" required="">
+				            </div>
+				            <div class="col-md-4 mb-3">
+				            	<label for="type">Type</label>
+				            	<select class="custom-select d-block w-100" id="type" required="">
+				                	<option value="">Choose...</option>
+				                	<option>Apartment</option>
+				                	<option>House</option>
+				                </select>
+				            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-8 mb-3">
+								<label for="area">Building Area</label>
+								<input type="text" class="form-control" id="area" placeholder="please input the area (square feet)." required="">
+							</div>
+							<div class="col-md-4 mb-3">
+								<label for="buildingAge">Building Age</label>
+								<input type="text" class="form-control" id="buildingAge" required="">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="carGarage">
+					            	<label class="custom-control-label" for="carGarage">I would like to have a car garage</label>
+					            </div>
+							</div>
+						</div>
+						<hr class="mb-4">
+						<button class="btn btn-outline-primary btn-lg btn-block" type="submit">Now Predict!</button>
+					</form>
+				</div>
+			</div>
+		</div>
 
-                    <div class="form-group">
-                        <label for="bathrooms">Number of Bathrooms</label>
-                            <select class="form-control" name="bathrooms">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                     </div>
 
-                    <div class="form-group">
-                            <label for="text">Area</label>
-                            <input type="number" class="form-control" name="Sq.ft" aria-describedby="inputGroupPrepend" required>
-                            <div class="invalid-feedback">
-                                please input the area (Square feet).
-                            </div>
-                    </div>
+		<div class="modal fade" id="login_modal" tabindex="-1" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		    	<div class="modal-header">
+		        	<h5 class="modal-title" id="loginTitle">Login</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        	<span aria-hidden="true">&times;</span>
+		        </button>
+		    	</div>
+			    <div class="modal-body">
+			        <form>
+			        		<div class="form-group">
+								<label for="username">Username</label>
+								<input type="email" class="form-control" id="username" placeholder="Enter Username">
+							</div>
+							<div class="form-group">
+							    <label for="password">Password</label>
+							    <input type="password" class="form-control" id="password" placeholder="Password">
+							</div>
+							<div class="d-none alert alert-danger" role="alert">
+								Incorrect username or password
+							</div>
+			        </form>
+			    </div>
+			    <div class="modal-footer">
+			      	<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+			    </div>
+		    </div>
+		  </div>
+		</div>
 
-                    <div class="form-group">
-                        <label for="prediction_year">Prediction in year:</label>
-                            <select class="form-control" name="prediction_year">
-                                <option value="2019">2019</option>
-                                <option value="2020">2020</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                            </select>
-                     </div>
+		<div class="modal fade" id="aboutUs_modal" tabindex="-1" role="dialog" aria-labelledby="aboutUs" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		    	<div class="modal-header">
+		        	<h5 class="modal-title" id="aboutUs">Machine Learning Model Introduction</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        	<span aria-hidden="true">&times;</span>
+		        </button>
+		    	</div>
+		    	<div class="modal-body">
+		        <p>The dataset for Melbourne Housing prediction model is: </p>
+				<p>https://www.kaggle.com/anthonypino/melbourne-housing-market#MELBOURNE_HOUSE_PRICES_LESS.csv</p>
+		        <p>
+		        <br />
+		        <p>Linear Regression Model is used in the Melbourne Housing prediction.</p>
+		        <p>There are seven important features, like number of rooms, building type, building year are trained in the machine learning model.</p>
+		        <p>Therefore, when users logging in the webpage and want to realize the house price, they need to input these features’ values.</p>
+		        <p>As a result, the trained model will return a housing price back to user.</p>
+				</p>
+		    	</div>
+		    	<div class="modal-footer">
+		      		<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+		    	</div>
+		    </div>
+		  </div>
+		</div>
 
-                    <button type="submit" class="btn btn-default" name="submit">Submit</button>
-                </form>
-            </div>
-        </div>
-    </body>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	</body>
+
+	<footer class="my-5 pt-5 text-muted text-center text-small">
+    	<p class="mb-1">Assignment 3</p>
+    </footer>
 </html>
