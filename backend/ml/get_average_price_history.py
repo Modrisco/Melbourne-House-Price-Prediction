@@ -1,11 +1,11 @@
 def get_average_price_history(suburb_name):
     import pandas as pd
-    import numpy as np
     DF = pd.read_csv('Average Price History.csv')
     year=0
     average_price=0.0
     year_list=[]
     average_price_list=[]
+
 
     for index,row in DF.iterrows():
         year=int(row[0])
