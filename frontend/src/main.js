@@ -105,9 +105,9 @@ $('#login_modal').on('hidden.bs.modal', ()=>{
 })
 
 $('#userProfile').on('shown.bs.modal', function () {
-    $('#profile_username') = userInfo.username || ''
-    $('#profile_name') = userInfo.name || ''
-    $('#profile_token') = userInfo.token || ''
+    $('#profile_username').text(userInfo.username || '')
+    $('#profile_name').text(userInfo.name || '')
+    $('#profile_token').text(userInfo.token || '')
 })
 
 
@@ -115,4 +115,29 @@ $('#signOut').click(()=>{
     userInfo = {}
     $('#userSetting').addClass('d-none')
     $('#login-modal-button').removeClass('d-none')
+})
+
+$('#updatePwdBtn').click(()=>{
+    let url = "http://127.0.0.1/auth/update"
+    fetch(url,{
+            method:"PUT",
+            body:JSON.stringify(request),
+            header:{
+                "Content-Type": "application/json"
+            }
+        }
+    ).then(res=>{
+        if(res.status !== 200) console.log('invalid password')
+        else{
+            return
+        }
+    })
+})
+
+$('#copyToken').click(()=>{
+    let temp = $("<input>")
+    temp.val($('#profile_token').text()).select()
+    document.execCommand("copy")
+    $('#clipboardPopover').popover('show')
+    temp.remove()
 })

@@ -516,7 +516,7 @@
 				<a href="https://www.kaggle.com/anthonypino/melbourne-housing-market#MELBOURNE_HOUSE_PRICES_LESS.csv">Dataset</a><br><br>
 		        <p>Linear Regression Model is used in the Melbourne Housing prediction.</p>
 		        <p>There are seven important features, like number of rooms, building type, building year are trained in the machine learning model.</p>
-		        <p>Therefore, when users logging in the webpage and want to realize the house price, they need to input these features’ values.</p>
+		        <p>Therefore, when users logging in the webpage and want to realize the house price, they need to input these features' values.</p>
 		        <p>As a result, the trained model will return a housing price back to user.</p>
 		    	</div>
 		    	<div class="modal-footer">
@@ -560,14 +560,28 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<p><span class="col-md-3">Username: </span><span id="profile_username"></span></p>
-						<p><span class="col-md-3">Name: </span><span id="profile_name"></span></p>
-						<p><span class="col-md-3">Token: </span><span id="profile_token"></span></p>
+						<div class="row"><span class="col-md-3 mb-3">Username: </span><span class="col-md-9 mb-3" id="profile_username"></span></div>
+						<div class="row"><span class="col-md-3 mb-3">Name: </span><span class="col-md-9 mb-3" id="profile_name"></span></div>
+						<div class="row"><span class="col-md-3 mb-3">Token: </span><pre class="col-md-9 mb-3" id="profile_token"></pre></div>
+						<div class="row">
+							<buttom class="btn btn-sm btn-outline-primary col-md-12 mb-3" type="buttom" data-toggle="collapse" data-target="#updatePwdCollapse">Update Password</buttom>
+						</div>
+						<div class="row">
+							<div class="collapse col-md-12 mb-1" id="updatePwdCollapse">
+								<div class="card card-body bg-light">
+									<div class="row">
+									<input type="password" class="d-flex col-md-8 mb-1 " id="updatePwdInput" value=""/>
+									<input type="button" class="btn btn-outline-primary col-md-3 mb-1 ml-auto" id="updatePwdBtn" value="Confirm" />
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-outline-success">Save changes</button>
-					  </div>
+						<button type="button" class="btn btn-outline-success" id="copyToken">Copy Token</button>
+						<a class="d-inline-block" id="clipboardPopover" data-toggle="popover" content="Copied to Clipboard!"></a>
+					</div>
 			    </div>
 			  </div>
 		</div>
