@@ -11,6 +11,8 @@ from sklearn.model_selection import cross_val_score
 from sklearn.metrics import mean_squared_error
 from sklearn.externals import joblib
 
+## df = pd.read_csv("Melbourne_housing_FULL_test.csv")
+
 df = pd.read_csv("Melbourne_housing_FULL.csv")
 enc = LabelEncoder()
 df.iloc[:,0] = enc.fit_transform(df.iloc[:,0])
