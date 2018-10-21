@@ -27,3 +27,21 @@ from collections import defaultdict
 #import re
 
 surburb_name=input("Name of the surburb:")
+
+def create_price_history():
+    #pd.set_option('display.expand_frame_repr',False)
+    print('Creating word_frequency.')
+    df = pd.read_csv('Words in Books Data.csv')
+    df2=get_frequency(df)
+    print('Saving as: word_frequency_books.csv.')
+    df2.to_csv('word_frequency_books.csv')
+    return df2
+
+def print_dataframe(dataframe,print_column=True,print_rows=True):
+    if print_column:
+        print(",".join([column for column in dataframe]))
+    if print_rows:
+        for index,row in dataframe.iterrows():
+            print(",".join([str(row[column]) for column in dataframe]))
+    return
+
