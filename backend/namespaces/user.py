@@ -15,7 +15,7 @@ db = connection[DB_NAME]
 db.authenticate(DB_USER, DB_PASS)
 
 
-SECRET_KEY = "I AM YOUR WORST NIGHTMARE"
+SECRET_KEY = 'Abracadabra'
 expires_in = 600
 get_auth = AuthenticationToken(SECRET_KEY, expires_in)
 
@@ -39,7 +39,14 @@ class Login(Resource):
 		(un, ps) = unpack(j, 'username', 'password')
 		for document in userlist.find():
 			if document['username'] == un and document['password'] == ps:
-				return {"token": get_auth.generate_token(un)}
+				em = document['email']
+				n = document['name']
+				return {
+					"username": un,
+					'name': n,
+					'email': em,
+					"token": get_auth.generate_token(un)
+				}
 		abort(403, 'Invalid Username/Password')
 
 
@@ -73,7 +80,12 @@ class Signup(Resource):
 			abort(400, 'Password cannot be empty')
 
 		userlist.insert_one(signup_info)
-		return {"token": get_auth.generate_token(un)}
+		return {
+			'username': un,
+			'name': n,
+			'email': em,
+			'token': get_auth.generate_token(un)
+		}
 
 @auth.route('/update', strict_slashes=False)
 class Update(Resource):
@@ -119,3 +131,22 @@ class Destroy(Resource):
 				userlist.delete_one(document)
 				return 'account destroyed successfully'
 		abort(403, 'Invalid Username/Password')
+
+@auth.route('/token', strict_slashes=False)
+@auth.param('username', 'The username when a user signup and login uses')
+class GetNewToken(Resource):
+	@auth.response(200, 'Success')
+	@auth.response(400, 'Malformed Request')
+	@auth.doc(description='''
+		Use this endpoint to create a new valid token for user after login. 
+	''')
+	def get(self):
+		username = get_request_arg('username', str, required=True)
+		userlist = db.USERS
+		for document in userlist.find():
+			if document['username'] == username:
+				return {
+					'username': username,
+					'token': get_auth.generate_token(username)
+				}
+		abort(400, 'Invalid username')
