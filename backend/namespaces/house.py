@@ -63,8 +63,7 @@ class House(Resource):
 	@house.response(401, 'Invalid/Missing token')
 	@house.expect(house_details)
 	@house.doc(description='''
-			Use this endpoint to get the prediction of price with the features given by user,
-			a valid token should also be provided to keep the stability of the API 
+			Choose five random suburbs to see how's the price of house with same conditions in different area 
 		''')
 	def post(self):
 		j = get_request_json()
