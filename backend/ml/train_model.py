@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import math
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
@@ -9,6 +10,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import mean_squared_error
 from sklearn.externals import joblib
+
+## df = pd.read_csv("Melbourne_housing_FULL_test.csv")
 
 df = pd.read_csv("Melbourne_housing_FULL.csv")
 enc = LabelEncoder()
@@ -33,6 +36,8 @@ df['Car'] = df['Car'].fillna(impute_value_car)
 
 impute_value_area = df['BuildingArea'].mean()
 df['BuildingArea'] = df['BuildingArea'].fillna(impute_value_area)
+
+## remove some row with none value
 #df2 = df[df.Price.notnull()]
 df2 = df[df.Distance.notnull()]
 #df2 = df2[df2.Car.notnull()]
@@ -40,7 +45,7 @@ df2 = df[df.Distance.notnull()]
 df2 = df2[df2.YearBuilt.notnull()]
 df2['year'] = (2018 - df2.YearBuilt)
 
-# Select columns which are highly related to price
+# Select columns(features) which are highly related to price to train the model
 X = df2.iloc[:,[0,2,3,8,12,14,21]]
 Y = df2.Price
 X = pd.get_dummies(X, drop_first=True)
@@ -61,4 +66,5 @@ pred = linear.predict(X_test)
 # 462482.2032009657
 
 # import model file
+## get the model
 joblib.dump(linear, "mel_hp.ml")

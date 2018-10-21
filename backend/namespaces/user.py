@@ -91,6 +91,7 @@ class Signup(Resource):
 class Update(Resource):
 	@auth.response(200, 'Success')
 	@auth.response(400, 'Malformed Request')
+	@auth.response(403, 'Invalid Username/Password')
 	@auth.response(409, 'No changes')
 	@api.expect(user_update_details)
 	@auth.doc(description='''
@@ -108,8 +109,9 @@ class Update(Resource):
 			if document['username'] == un and document['password'] == ps:
 				new_password_item = {'password': np}
 				userlist.update_one(document, {'$set': new_password_item})
+				return 200
 
-		return 'password changed successfully'
+		abort(403, 'Invalid Username/Password')
 
 
 @auth.route('/destroy', strict_slashes=False)

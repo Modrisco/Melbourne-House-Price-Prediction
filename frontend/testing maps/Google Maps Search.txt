@@ -1,0 +1,11 @@
+suburb_name = ""	# e.g. Kingsford
+
+map_link = https://www.google.com/maps/search/?api=1&query={surburb_name}
+
+suburb_name = "Kingsford"
+
+map_link = https://www.google.com/maps/search/?api=1&query=Kingsford
+
+suburb_name = "Kingsford IGA"
+
+map_link = https://www.google.com/maps/search/?api=1&query=Kingsford+IGA
