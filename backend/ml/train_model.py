@@ -45,7 +45,7 @@ df2 = df[df.Distance.notnull()]
 df2 = df2[df2.YearBuilt.notnull()]
 df2['year'] = (2018 - df2.YearBuilt)
 
-# Select columns which are highly related to price
+# Select columns(features) which are highly related to price to train the model
 X = df2.iloc[:,[0,2,3,8,12,14,21]]
 Y = df2.Price
 X = pd.get_dummies(X, drop_first=True)
