@@ -19,6 +19,7 @@ submitButton.addEventListener('click', () => {
     houseData.Year = document.getElementById('buildingAge').value;
     console.log(houseData)
     getPrice(houseData)
+    getRanSuburbs(houseData)
 })
 
 function getPrice(data) {
@@ -56,7 +57,27 @@ function getPrice(data) {
         console.log('Success:', JSON.stringify(response))
     })
     .catch(error => console.error('Error:', error))
-    
+}
+
+function getRanSuburbs(data){
+    let url = "http://127.0.0.1:5000/house/random_suburbs"
+    fetch(url,{
+        method:"POST",
+        body:JSON.stringify(data),
+        headers:{
+            "Content-Type": "application/json"
+        }
+    }).then(res=>{
+        if(res.status !== 200) throw 0
+        return res.json()
+    }).then(resp=>{
+        console.log(resp)
+        let processingHtml = ''
+        for(let[key,value] of Object.entries(resp)){
+            processingHtml +=`<li>${key}: ${value}</li>`
+        }
+        $('#ranSuburbs').html(processingHtml)
+    })
 }
 
 $('#loginSubmit').click(()=>{
