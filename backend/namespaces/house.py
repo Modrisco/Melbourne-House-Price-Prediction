@@ -16,7 +16,7 @@ house = api.namespace('house', description='house price prediction')
 @house.route('/data', strict_slashes=False)
 class House(Resource):
 	@house.response(200, 'Success')
-	@house.response(400, 'Missing parameters')
+	@house.response(400, 'Invalid/Missing parameters')
 	@house.response(401, 'Invalid/Missing token')
 	@house.expect(house_details)
 	@house.doc(description='''
@@ -44,6 +44,8 @@ class House(Resource):
 			except:
 				abort(400, 'Wrong input type')
 			data_array[i] = int(data_array[i])
+			if data_array[i] < 0:
+				abort(400, 'Invalid input')
 		result = predict(data_array)
 		price_result = {'price': result}
 		return price_result
