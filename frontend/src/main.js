@@ -21,15 +21,6 @@ submitButton.addEventListener('click', () => {
     getPrice(houseData)
 })
 
-// loginButton.addEventListener('click', () => {
-//     let un = document.getElementById('username').value
-//     let up = document.getElementById('password').value
-//     let userJSON = {
-//         'username': un,
-//         'password': up
-//     }
-// })
-
 function getPrice(data) {
     var url = 'http://127.0.0.1:5000/house/data';
     fetch(url, {
@@ -95,10 +86,53 @@ $('#loginSubmit').click(()=>{
         $('#login_modal').modal('hide')
         $('#userSetting').removeClass('d-none')
         $('#login-modal-button').addClass('d-none')
+        $('#register-modal-button').addClass('d-none')
     })
     .catch(err=>{
         console.log(err)
     })
+})
+
+$('#registerSubmit').click(()=>{
+    let url = 'http://127.0.0.1:5000/auth/signup'
+    let data = {
+        username: $('#registerUsernameInput').val(),
+        password: $('#registerPasswordInput').val(),
+        email: $('#registerEmailInput').val(),
+        name: $('#registerNameInput').val()
+    }
+    fetch(url,{
+        method:'POST',
+        body:JSON.stringify(data),
+    headers:{
+    "Content-Type":"application/json"
+}
+})
+.then(res=>{
+    if(res.status === 409) {
+    $('#usernameTaken').removeClass('d-none')
+    throw 0
+}
+    if(res.status === 400) {
+    $('#paraMiss').removeClass('d-none')
+    throw 0
+}
+return res.json()
+})
+.then(resp=>{
+    console.log(resp.token)
+userInfo.token = resp.token
+userInfo.username = resp.username
+userInfo.name = resp.name
+$('#notLogin').collapse('hide')
+$('#register_modal').modal('hide')
+$('#userSetting').removeClass('d-none')
+$('#login-modal-button').addClass('d-none')
+$('#register-modal-button').addClass('d-none')
+})
+.catch(err=>{
+    // if(err === 0) $()
+})
 })
 
 $('#login_modal').on('hidden.bs.modal', ()=>{
@@ -118,6 +152,7 @@ $('#signOut').click(()=>{
     userInfo = {}
     $('#userSetting').addClass('d-none')
     $('#login-modal-button').removeClass('d-none')
+    $('#register-modal-button').removeClass('d-none')
 })
 
 $('#originalPwdBtn').click(()=>{

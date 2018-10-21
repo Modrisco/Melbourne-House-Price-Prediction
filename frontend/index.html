@@ -13,6 +13,7 @@
 	     	    <a class="p-2 text-dark" href="#" data-toggle="modal" data-target="#intro_modal">Introduction</a>
 	        </nav>
 	      	<button type="button" id="login-modal-button" class=" btn btn-primary" data-toggle="modal" data-target="#login_modal">Login</button>
+	      	<button type="button" id="register-modal-button" class=" btn btn-primary" data-toggle="modal" data-target="#register_modal">Sign up</button>
 	      	<div class="dropdown" id="userSetting">
 	      		<button type="button" id="user-modal-button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       			<i class="fas fa-users-cog"></i>
@@ -502,6 +503,50 @@
 			    </div>
 		    </div>
 		  </div>
+		</div>
+
+		<div class="modal fade" id="register_modal" tabindex="-1" role="dialog" aria-labelledby="loginTitle" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="registerTitle">Sign up</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form id='registerForm'>
+							<div class="form-group">
+								<label for="usernameInput">Username</label>
+								<input type="username" class="form-control" id="registerUsernameInput" placeholder="Enter Username" value="">
+							</div>
+							<div class="form-group">
+								<label for="passwordInput">Password</label>
+								<input type="password" class="form-control" id="registerPasswordInput" placeholder="Password" value="">
+							</div>
+							<div class="form-group">
+								<label for="passwordInput">Email</label>
+								<input type="password" class="form-control" id="registerEmailInput" placeholder="Email" value="">
+							</div>
+							<div class="form-group">
+								<label for="passwordInput">Name</label>
+								<input type="password" class="form-control" id="registerNameInput" placeholder="Name" value="">
+							</div>
+							<div class="d-none alert alert-danger" role="alert" id='usernameTaken'>
+								Username has been taken
+							</div>
+							<div class="d-none alert alert-danger" role="alert" id='paraMiss'>
+								Please fill all blanks
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+						<input type="button" id="registerSubmit" class="btn btn-outline-primary" value="Submit" />
+						<!-- <button id="loginSubmit">Submit</button> -->
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<div class="modal fade" id="intro_modal" tabindex="-1" role="dialog" aria-labelledby="intro" aria-hidden="true">
