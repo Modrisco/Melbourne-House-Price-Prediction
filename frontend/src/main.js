@@ -1,15 +1,14 @@
-userToken = ""
+let userInfo = {}
 
 var submitButton = document.getElementById('submit-button');
 
 submitButton.addEventListener('click', () => {
-    if(!userToken){
+    if(!userInfo.token){
         $('#notLogin').collapse('show')
-        console.log('please login')
         return
     }
     var houseData = {}
-    houseData.Token = userToken;
+    houseData.Token = userInfo.token;
     houseData.Suburb = document.getElementById('suburb').value;
     houseData.Rooms = document.getElementById('bedrooms').value;
     houseData.Type = document.getElementById('type').value;
@@ -54,7 +53,6 @@ function getPrice(data) {
     
 }
 
-console.log('user')
 $('#loginSubmit').click(()=>{
     let url = 'http://127.0.0.1:5000/auth/login'
     let data = {
@@ -77,18 +75,34 @@ $('#loginSubmit').click(()=>{
     })
     .then(resp=>{
         console.log(resp.token)
-        // regex = new new RegExp(';\s?')
-        userToken = resp.token
+        userInfo.token = resp.token
+        userInfo.username = resp.username
+        userInfo.name = resp.name
         $('#notLogin').collapse('hide')
         $('#login_modal').modal('hide')
+        $('#userSetting').removeClass('d-none')
+        $('#login-modal-button').addClass('d-none')
     })
     .catch(err=>{
         // if(err === 0) $()
     })
 })
 
-$('#login_modal').on('hidden.bs.modal', function (e) {
+$('#login_modal').on('hidden.bs.modal', ()=>{
     $('#invalidLogin').addClass('d-none')
     $('#usernameInput').prop('value','')
     $('#passwordInput').prop('value','')
+})
+
+$('#userProfile').on('shown.bs.modal', function () {
+    $('#profile_username') = userInfo.username || ''
+    $('#profile_name') = userInfo.name || ''
+    $('#profile_token') = userInfo.token || ''
+})
+
+
+$('#signOut').click(()=>{
+    userInfo = {}
+    $('#userSetting').addClass('d-none')
+    $('#login-modal-button').removeClass('d-none')
 })
