@@ -3,4 +3,8 @@
  }
  .header-img{
  	max-width: 100%; height: auto; margin-top: 85px;
+
+ }
+ #googleMapBtn{
+	 text-decoration: none;
  }

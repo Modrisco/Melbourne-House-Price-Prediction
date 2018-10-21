@@ -50,6 +50,9 @@ function getPrice(data) {
             var housePrice = document.getElementById('price')
             if(response.price){
                 housePrice.innerText = response.price
+                let encodedSuburb = response.suburb.replace(' ','+')
+                let suburbUrl = `https://www.google.com/maps/search/?api=1&query=${encodedSuburb}` 
+                $('#googleMapBtn').attr('href',suburbUrl)
                 if(!$('#invalidResult').hasClass('d-none')) $('#invalidResult').addClass('d-none')
                 $('#result').removeClass('d-none')
             }
@@ -94,7 +97,7 @@ $('#loginSubmit').click(()=>{
         $('#login-modal-button').addClass('d-none')
     })
     .catch(err=>{
-        // if(err === 0) $()
+        console.log(err)
     })
 })
 
@@ -117,27 +120,69 @@ $('#signOut').click(()=>{
     $('#login-modal-button').removeClass('d-none')
 })
 
+$('#originalPwdBtn').click(()=>{
+    userInfo.pwdRequestOri = $('#originalPwdInput').val()
+    $('#originalPwdBtn').addClass('d-none')
+    $('#originalPwdInput').addClass('d-none')
+    $('#originalPwdInput').val('')
+    $('#updatePwdBtn').removeClass('d-none')
+    $('#updatePwdInput').removeClass('d-none')
+})
+
 $('#updatePwdBtn').click(()=>{
-    let url = "http://127.0.0.1/auth/update"
+    $('#updatePwdBtn').addClass('d-none')
+    $('#updatePwdInput').addClass('d-none')
+    $('#updatePwdInput').val('')
+    let url = "http://127.0.0.1:5000/auth/update"
+    let request = {
+        username: userInfo.username,
+        password: userInfo.pwdRequestOri,
+        new_password: $('#updatePwdInput').val()
+    }
+    console.log('request',request)
     fetch(url,{
             method:"PUT",
             body:JSON.stringify(request),
-            header:{
+            headers:{
                 "Content-Type": "application/json"
             }
         }
     ).then(res=>{
-        if(res.status !== 200) console.log('invalid password')
+        console.log(res)
+        if(res.status !== 200) $('#failUpdatePwd').removeClass('d-none')
         else{
-            return
+            $('#sucessUpdatePwd').removeClass('d-none')
         }
-    })
+    }).catch(err=>consoel.log(err))
+})
+
+$('#failUpdatePwd').click(()=>{
+    $('#failUpdatePwd').addClass('d-none')
+    $('#originalPwdBtn').removeClass('d-none')
+    $('#originalPwdInput').removeClass('d-none')
+})
+
+$('#sucessUpdatePwd').click(()=>{
+    $('#sucessUpdatePwd').addClass('d-none')
+    $('#originalPwdBtn').removeClass('d-none')
+    $('#originalPwdInput').removeClass('d-none')
 })
 
 $('#copyToken').click(()=>{
-    let temp = $("<input>")
-    temp.val($('#profile_token').text()).select()
+    // let temp = $("<input>")
+    // $('body').append(temp)
+    // temp.val($('#profile_token').text()).select()
+    // document.execCommand("copy")
+    // temp.remove()
+    let input = document.querySelector('#copyfrom')
+    input.value = $('#profile_token').text()
+    input.select()
     document.execCommand("copy")
-    $('#clipboardPopover').popover('show')
-    temp.remove()
+    $('#profile_token').focus()
 })
+
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
+
+// $('#clipboardPopover').popover('show')

@@ -73,11 +73,11 @@ class Signup(Resource):
 			'email': em,
 			'name': n
 		}
+		if ps == '' or un == '' or em == '' or n == '':
+			abort(400, 'Empty parameter')
 		for document in userlist.find():
 			if document['username'] == un:
 				abort(409, 'Username Taken')
-		if ps == '':
-			abort(400, 'Password cannot be empty')
 
 		userlist.insert_one(signup_info)
 		return {
@@ -91,6 +91,7 @@ class Signup(Resource):
 class Update(Resource):
 	@auth.response(200, 'Success')
 	@auth.response(400, 'Malformed Request')
+	@auth.response(403, 'Invalid Username/Password')
 	@auth.response(409, 'No changes')
 	@api.expect(user_update_details)
 	@auth.doc(description='''
@@ -108,8 +109,9 @@ class Update(Resource):
 			if document['username'] == un and document['password'] == ps:
 				new_password_item = {'password': np}
 				userlist.update_one(document, {'$set': new_password_item})
+				return 200
 
-		return 'password changed successfully'
+		abort(403, 'Invalid Username/Password')
 
 
 @auth.route('/destroy', strict_slashes=False)

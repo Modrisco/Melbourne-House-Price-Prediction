@@ -9,6 +9,7 @@ from sklearn.externals import joblib
 # result = int(round(pred[0],0))
 # result_a = format(abs(result),',')
 # print(result_a)
+## data is given by the frontpage
 
 
 def predict(data):
