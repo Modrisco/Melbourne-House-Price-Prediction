@@ -2,7 +2,7 @@ import sys,json
 import numpy as np
 from sklearn.externals import joblib
 
-
+## predict value according to the trained model
 # data = np.array(data['data'])
 # sav = joblib.load('./mel_hp.ml')
 # pred = sav.predict(data.reshape(1,-1))

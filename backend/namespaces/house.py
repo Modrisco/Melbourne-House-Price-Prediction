@@ -6,7 +6,7 @@ from util.models import *
 from ml.app_predict import *
 
 
-SECRET_KEY = "I AM YOUR WORST NIGHTMARE"
+SECRET_KEY = 'Abracadabra'
 expires_in = 600
 get_auth = AuthenticationToken(SECRET_KEY, expires_in)
 
@@ -16,7 +16,8 @@ house = api.namespace('house', description='house price prediction')
 @house.route('/data', strict_slashes=False)
 class House(Resource):
 	@house.response(200, 'Success')
-	@house.response(400, 'Missing parameters')
+	@house.response(400, 'Invalid/Missing parameters')
+	@house.response(401, 'Invalid/Missing token')
 	@house.expect(house_details)
 	@house.doc(description='''
 			Use this endpoint to get the prediction of price with the features given by user,
@@ -43,6 +44,8 @@ class House(Resource):
 			except:
 				abort(400, 'Wrong input type')
 			data_array[i] = int(data_array[i])
+			if data_array[i] < 0:
+				abort(400, 'Invalid input')
 		result = predict(data_array)
 		price_result = {'price': result}
 		return price_result

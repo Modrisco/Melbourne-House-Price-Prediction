@@ -1,6 +1,7 @@
 let userInfo = {}
 
 var submitButton = document.getElementById('submit-button');
+// var loginButton = document.getElementById('login-button');
 
 submitButton.addEventListener('click', () => {
     if(!userInfo.token){
@@ -19,6 +20,15 @@ submitButton.addEventListener('click', () => {
     console.log(houseData)
     getPrice(houseData)
 })
+
+// loginButton.addEventListener('click', () => {
+//     let un = document.getElementById('username').value
+//     let up = document.getElementById('password').value
+//     let userJSON = {
+//         'username': un,
+//         'password': up
+//     }
+// })
 
 function getPrice(data) {
     var url = 'http://127.0.0.1:5000/house/data';
