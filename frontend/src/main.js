@@ -49,6 +49,7 @@ function getPrice(data) {
             }
             else {
                 if(!$('#result').hasClass('d-none')) $('#result').addClass('d-none')
+                document.getElementById('getPriceError').innerText=response.message
                 $('#invalidResult').removeClass('d-none')
                 $('#getPriceError').text(response.message)
             }

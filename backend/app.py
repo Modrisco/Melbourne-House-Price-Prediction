@@ -24,7 +24,7 @@ class AuthenticationToken:
         info = self.serializer.loads(token.encode())
 
         if time() - info['creation_time'] > self.expires_in:
-            raise SignatureExpired("The Token has been expired; get a new token")
+            raise SignatureExpired("The Token has been expired, please get a new token")
 
         return 1
 

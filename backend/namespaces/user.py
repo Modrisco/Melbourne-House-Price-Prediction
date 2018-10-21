@@ -16,7 +16,7 @@ db.authenticate(DB_USER, DB_PASS)
 
 
 SECRET_KEY = 'Abracadabra'
-expires_in = 600
+expires_in = 300
 get_auth = AuthenticationToken(SECRET_KEY, expires_in)
 
 
