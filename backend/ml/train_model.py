@@ -33,6 +33,8 @@ df['Car'] = df['Car'].fillna(impute_value_car)
 
 impute_value_area = df['BuildingArea'].mean()
 df['BuildingArea'] = df['BuildingArea'].fillna(impute_value_area)
+
+## remove some row with none value
 #df2 = df[df.Price.notnull()]
 df2 = df[df.Distance.notnull()]
 #df2 = df2[df2.Car.notnull()]
