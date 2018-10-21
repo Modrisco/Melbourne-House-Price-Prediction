@@ -50,6 +50,7 @@ function getPrice(data) {
             else {
                 if(!$('#result').hasClass('d-none')) $('#result').addClass('d-none')
                 $('#invalidResult').removeClass('d-none')
+                $('#getPriceError').text(response.message)
             }
         console.log('Success:', JSON.stringify(response))
     })
@@ -203,17 +204,16 @@ $('#sucessUpdatePwd').click(()=>{
     $('#originalPwdInput').removeClass('d-none')
 })
 
-$('#copyToken').click(()=>{
-    // let temp = $("<input>")
-    // $('body').append(temp)
-    // temp.val($('#profile_token').text()).select()
-    // document.execCommand("copy")
-    // temp.remove()
-    let input = document.querySelector('#copyfrom')
-    input.value = $('#profile_token').text()
-    input.select()
-    document.execCommand("copy")
-    $('#profile_token').focus()
+$('#updateToken').click(()=>{
+    let url = `http://127.0.0.1:5000/auth/token?username=${userInfo.username}`
+    fetch(url,{
+    }).then(res=>{
+        if(res.status !== 200) return alert('Fail to update token')
+        else return res.json()
+    }).then(resp=>{
+        userInfo.token = resp.token
+        $('#profile_token').text(userInfo.token)
+    }).catch(err=>console.log(err))
 })
 
 $(function () {

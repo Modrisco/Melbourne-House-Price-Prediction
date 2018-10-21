@@ -7,7 +7,7 @@
 		
 	</head>
 	<body>
-		<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm" style="width: 100%;height: 80px;position: fixed;top: 0;">
+		<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
 
 	        <h4 class="my-0 mr-md-auto font-weight-normal"><b>Melbourne House Market Prediction</b></h4>
 	        <nav class="my-2 my-md-0 mr-md-3">
@@ -52,11 +52,11 @@
 								<a href="#" id="googleMapBtn" target="_blank">Find it in Google Map</a>
 							</button>
 			        	</div>
-			        	<div class="d-none card-body" id='invalidResult' ">
+			        	<div class="d-none card-body" id='invalidResult'>
 							<div class="text-center">
 								<i class="fas fa-times-circle fa-2x"></i>
 								<p></p>
-								<p>Incorrect Input</p>
+								<p id="getPriceError"></p>
 							</div>
 			        	</div>
 			        </div>
@@ -632,7 +632,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-						<input type="button" class="btn btn-outline-success" id="clipboardPopover" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Copied to Clipboard!" value="Copy Token"/>
+						<input type="button" class="btn btn-outline-success" id="updateToken" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Token has been updated!" value="Update Token"/>
 						<input class='d-none' id="copyfrom" tabindex='-1' aria-hidden='true'>
 					</div>
 			    </div>
