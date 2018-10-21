@@ -86,7 +86,7 @@ $('#loginSubmit').click(()=>{
         userInfo.name = resp.name
         $('#notLogin').collapse('hide')
         $('#login_modal').modal('hide')
-        $('#userSetting').removeClass('d-none')
+        $('#user-modal-button').removeClass('d-none')
         $('#login-modal-button').addClass('d-none')
         $('#register-modal-button').addClass('d-none')
     })
@@ -108,39 +108,51 @@ $('#registerSubmit').click(()=>{
         body:JSON.stringify(data),
     headers:{
     "Content-Type":"application/json"
-}
+    }
 })
-.then(res=>{
-    if(res.status === 409) {
-    $('#usernameTaken').removeClass('d-none')
-    throw 0
-}
-    if(res.status === 400) {
-    $('#paraMiss').removeClass('d-none')
-    throw 0
-}
-return res.json()
-})
-.then(resp=>{
-    console.log(resp.token)
-userInfo.token = resp.token
-userInfo.username = resp.username
-userInfo.name = resp.name
-$('#notLogin').collapse('hide')
-$('#register_modal').modal('hide')
-$('#userSetting').removeClass('d-none')
-$('#login-modal-button').addClass('d-none')
-$('#register-modal-button').addClass('d-none')
-})
-.catch(err=>{
-    // if(err === 0) $()
-})
-})
+    .then(res=>{
+        if(res.status === 409) {
+        $('#usernameTaken').removeClass('d-none')
+        $('#paraMiss').addClass('d-none')
+        throw 0
+    }
+        if(res.status === 400) {
+        $('#usernameTaken').addClass('d-none')
+        $('#paraMiss').removeClass('d-none')
+        throw 0
+    }
+    return res.json()
+    })
+    .then(resp=>{
+        console.log(resp.token)
+        userInfo.token = resp.token
+        userInfo.username = resp.username
+        userInfo.name = resp.name
+        $('#notLogin').collapse('hide')
+        $('#register_modal').modal('hide')
+        $('#userSetting').removeClass('d-none')
+        $('#login-modal-button').addClass('d-none')
+        $('#register-modal-button').addClass('d-none')
+        $('#user-modal-button').removeClass('d-none')
+    })
+    .catch(err=>{
+        // if(err === 0) $()
+    })
+    })
 
 $('#login_modal').on('hidden.bs.modal', ()=>{
     $('#invalidLogin').addClass('d-none')
     $('#usernameInput').prop('value','')
     $('#passwordInput').prop('value','')
+})
+
+$('#register_modal').on('hidden.bs.modal',()=>{
+    $('#paraMiss').addClass('d-none')
+    $('#usernameTaken').addClass('d-none')
+    $('#registerUsernameInput').val('')
+    $('#registerPasswordInput').val('')
+    $('#registerEmailInput').val('')
+    $('#registerNameInput').val('')
 })
 
 $('#userProfile').on('shown.bs.modal', function () {
