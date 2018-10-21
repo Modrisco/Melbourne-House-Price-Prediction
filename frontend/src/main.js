@@ -74,7 +74,8 @@ function getRanSuburbs(data){
         console.log(resp)
         let processingHtml = ''
         for(let[key,value] of Object.entries(resp)){
-            processingHtml +=`<li>${key}: ${value}</li>`
+            // processingHtml +=`<li>${key}: ${value}</li>`
+            processingHtml += `<tr><td>${key}</td><td>$${value}k</td></tr>`
         }
         $('#ranSuburbs').html(processingHtml)
     })
