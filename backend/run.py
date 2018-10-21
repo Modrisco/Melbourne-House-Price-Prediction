@@ -1,4 +1,4 @@
-import os, sys
+import sys
 
 try:
 	from app import app
@@ -8,4 +8,4 @@ try:
 except ImportError as e:
 	print('ERROR:', e, file=sys.stderr)
 	if sys.version_info < (3,6):
-		print('laji')
+		print('Please update your python version')

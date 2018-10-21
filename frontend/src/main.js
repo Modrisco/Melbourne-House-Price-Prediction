@@ -117,8 +117,24 @@ $('#signOut').click(()=>{
     $('#login-modal-button').removeClass('d-none')
 })
 
+$('#originalPwdBtn').click(()=>{
+    userInfo.pwdRequestOri = $('#originalPwdInput').val()
+    $('#originalPwdBtn').addClass('d-none')
+    $('#originalPwdInput').addClass('d-none')
+    $('#updatePwdBtn').removeClass('d-none')
+    $('#updatePwdInput').removeClass('d-none')
+})
+
 $('#updatePwdBtn').click(()=>{
-    let url = "http://127.0.0.1/auth/update"
+    $('#updatePwdBtn').addClass('d-none')
+    $('#updatePwdInput').addClass('d-none')
+    let url = "http://127.0.0.1:5000/auth/update"
+    let request = {
+        username: userInfo.username,
+        password: userInfo.pwdRequestOri,
+        new_password: $('#updatePwdInput').val()
+    }
+    console.log('request',request)
     fetch(url,{
             method:"PUT",
             body:JSON.stringify(request),
@@ -127,17 +143,35 @@ $('#updatePwdBtn').click(()=>{
             }
         }
     ).then(res=>{
-        if(res.status !== 200) console.log('invalid password')
+        console.log(res)
+        if(res.status !== 200) $('#failUpdatePwd').removeClass('d-none')
         else{
-            return
+            $('#sucessUpdatePwd').removeClass('d-none')
         }
-    })
+    }).catch(err=>consoel.log(err))
+})
+
+$('#failUpdatePwd').click(()=>{
+    $('#failUpdatePwd').addClass('d-none')
+    $('#originalPwdBtn').removeClass('d-none')
+    $('#originalPwdInput').removeClass('d-none')
+})
+
+$('#sucessUpdatePwd').click(()=>{
+    $('#sucessUpdatePwd').addClass('d-none')
+    $('#originalPwdBtn').removeClass('d-none')
+    $('#originalPwdInput').removeClass('d-none')
 })
 
 $('#copyToken').click(()=>{
     let temp = $("<input>")
     temp.val($('#profile_token').text()).select()
     document.execCommand("copy")
-    $('#clipboardPopover').popover('show')
     temp.remove()
 })
+
+$(function () {
+    $('[data-toggle="popover"]').popover()
+})
+
+// $('#clipboardPopover').popover('show')

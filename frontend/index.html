@@ -570,8 +570,12 @@
 							<div class="collapse col-md-12 mb-1" id="updatePwdCollapse">
 								<div class="card card-body bg-light">
 									<div class="row">
-									<input type="password" class="d-flex col-md-8 mb-1 " id="updatePwdInput" value=""/>
-									<input type="button" class="btn btn-outline-primary col-md-3 mb-1 ml-auto" id="updatePwdBtn" value="Confirm" />
+									<input type="password" class="col-md-8 mb-1" id="originalPwdInput" value="" placeholder="Your old password" required=""/>
+									<input type="password" class="col-md-8 mb-1 d-none" id="updatePwdInput" value="" placeholder="Your new password" required=""/>
+									<input type="button" class="btn btn-outline-primary col-md-3 mb-1 ml-auto" id="originalPwdBtn" value="Confirm" />
+									<input type="button" class="d-none btn btn-outline-primary col-md-3 mb-1 ml-auto" id="updatePwdBtn" value="Update" />
+									<button class="btn btn-outline-success col-md-12 d-none" id="sucessUpdatePwd">Sucessfully changed the password</button>
+									<button class="btn btn-outline-danger col-md-12 d-none" id="failUpdatePwd">Fail to change the password</button>
 									</div>
 								</div>
 							</div>
@@ -579,8 +583,8 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-outline-success" id="copyToken">Copy Token</button>
-						<a class="d-inline-block" id="clipboardPopover" data-toggle="popover" content="Copied to Clipboard!"></a>
+						<!-- <button type="button" class="btn btn-outline-success" id="copyToken">Copy Token</button> -->
+						<input type="button" class="btn btn-outline-success" id="clipboardPopover" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="Copied to Clipboard!" value="Copy Token"/>
 					</div>
 			    </div>
 			  </div>
