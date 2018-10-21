@@ -12,8 +12,9 @@ from sklearn.metrics import mean_squared_error
 from sklearn.externals import joblib
 
 ## df = pd.read_csv("Melbourne_housing_FULL_test.csv")
-
 df = pd.read_csv("Melbourne_housing_FULL.csv")
+
+# Normalise data(transfer different feature of string type into orderd number)
 enc = LabelEncoder()
 df.iloc[:,0] = enc.fit_transform(df.iloc[:,0])
 df.iloc[:,3] = enc.fit_transform(df.iloc[:,3])
@@ -64,6 +65,7 @@ pred = linear.predict(X_test)
 # 0.5269530680297595
 # rmse = np.sqrt(mean_squared_error(Y_test, pred)) 
 # 462482.2032009657
+# Score looks good
 
 # import model file
 ## get the model
