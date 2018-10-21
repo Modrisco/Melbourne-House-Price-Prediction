@@ -73,11 +73,11 @@ class Signup(Resource):
 			'email': em,
 			'name': n
 		}
+		if ps == '' or un == '' or em == '' or n == '':
+			abort(400, 'Empty parameter')
 		for document in userlist.find():
 			if document['username'] == un:
 				abort(409, 'Username Taken')
-		if ps == '':
-			abort(400, 'Password cannot be empty')
 
 		userlist.insert_one(signup_info)
 		return {
